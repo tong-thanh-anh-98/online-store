@@ -1,7 +1,10 @@
 <?php
 
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminLoginController;
 
 /*
@@ -48,5 +51,27 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [HomeController::class, 'index'])->name('admin.dashboard');
         Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
         Route::get('/logout', [HomeController::class, 'logout'])->name('admin.logout');
+
+        // category routes starts
+        Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
+        /**
+         * Generate a slug from the given title.
+         *
+         * @param \Illuminate\Http\Request $request The request object.
+         * @return \Illuminate\Http\JsonResponse The JSON response containing the generated slug and status.
+         */
+        Route::get('/getSlug', function(Request $request) {
+            $slug = '';
+            if (!empty($request->title)) {
+                $slug = Str::slug($request->title);
+            }
+            return response()->json([
+                'status' => true,
+                'slug' => $slug,
+            ]);
+        })->name('getSlug');
     });
 });
