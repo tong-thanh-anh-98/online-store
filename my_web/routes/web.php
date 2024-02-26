@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\TempImagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
         Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
         Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
+        // Route upload image
+        Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
 
         /**
          * Generate a slug from the given title.

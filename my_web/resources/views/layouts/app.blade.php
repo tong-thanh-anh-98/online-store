@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{{ asset('admin-assets/plugins/fontawesome-free/css/all.min.css') }}">
 <!--  -->
 <link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote.min.css') }}">
-<!--  -->
+<!-- Image upload library  -->
 <link rel="stylesheet" href="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.css') }}">
 <!-- Bootstrap 5 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin-assets/js/adminlte.min.js') }}"></script>
-<!--  -->
+<!-- Image upload library  -->
 <script src="{{ asset('admin-assets/plugins/summernote/summernote.min.js') }}"></script>
 <!--  -->
 <script src="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.js') }}"></script>
@@ -67,6 +67,8 @@
     //     });
     // });
 </script>
+
 @yield('customJs')
+
 </body>
 </html>
