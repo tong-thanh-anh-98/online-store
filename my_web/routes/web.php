@@ -5,10 +5,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\TempImagesController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\ProductSubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +57,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
         Route::get('/logout', [HomeController::class, 'logout'])->name('admin.logout');
 
-        // category routes starts
+        // category routes
         Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
         Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
         Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
@@ -63,7 +65,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::put('/categories/{categoryId}', [CategoryController::class, 'update'])->name('categories.update');
         Route::delete('/categories/{categoryId}', [CategoryController::class, 'destroy'])->name('categories.delete');
 
-        // subcategory routes starts
+        // subcategory routes
         Route::get('/sub-categories', [SubCategoryController::class, 'index'])->name('sub-categories.index');
         Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-categories.create');
         Route::post('/sub-categories', [SubCategoryController::class, 'store'])->name('sub-categories.store');
@@ -77,6 +79,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/brands/edit/{brandId}', [BrandController::class, 'edit'])->name('brands.edit');
         Route::put('/brands/{brandId}', [BrandController::class, 'update'])->name('brands.update');
         Route::delete('/brands/{brandId}', [BrandController::class, 'destroy'])->name('brands.delete');
+
+        // products routes
+        Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/products/edit', [ProductController::class, 'edit'])->name('products.edit');
+
+        // products subcategory routes
+        Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
 
         // Route upload image
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');

@@ -32,12 +32,12 @@
                         <p>Brands</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a href="{{ route('products.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>Products</p>
                     </a>
-                </li> --}}
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <!-- <i class="nav-icon fas fa-tag"></i> -->

@@ -61,11 +61,11 @@
     Dropzone.autoDiscover = false;
 
     // Summernote section
-    // $(document).ready(function () {
-    //     $('.summernote').summernote({
-    //         height: '250px'
-    //     });
-    // });
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            height: '250px'
+        });
+    });
 </script>
 
 @yield('customJs')
