@@ -3,6 +3,7 @@
 + php artisan make:model Category
 + php artisan make:model TempImage
 + php artisan make:model SubCategory
++ php artisan make:model Brand
 
 - Controller
 + php artisan make:controller Admin/AdminLoginController
@@ -10,6 +11,7 @@
 + php artisan make:controller Admin/CategoryController
 + php artisan make:controller Admin/TempImagesController
 + php artisan make:controller Admin/SubCategoryController
++ php artisan make:controller Admin/BrandController
 
 - Factory
 + php artisan make:factory CategoryFactory
@@ -30,6 +32,7 @@
 + php artisan make:migration create_categories_table
 + php artisan make:migration create_temp_images_table
 + php artisan make:migration create_sub_categories_table
++ php artisan make:migration create_brands_table
 
 - Install librarys
 + Image Intervention: composer require intervention/image
