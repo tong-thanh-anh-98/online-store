@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <section class="content-header">
+    <section class="content-header">					
         <div class="container-fluid my-2">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Edit Category</h1>
+                    <h1>Create Sub Category</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('categories.index') }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('sub-categories.index') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
@@ -17,91 +16,89 @@
 
     <section class="content">
         <div class="container-fluid">
-            <form action="" method="post" id="updateCategoryForm" name="updateCategoryForm">
-                @csrf
+            <form action="" name="subCategoryForm" id="subCategoryForm">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body">								
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="name">Category<span style="color:#FF0000">*</span></label>
+                                    <select name="category" id="category" class="form-control">
+                                        <option value="">Select a category</option>
+                                        @if ($categories->isNotEmpty())
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <p></p>
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Name<span style="color:#FF0000">*</span></label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Name" value="{{ $category->name}}">
-                                    <p></p>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+                                    <p></p>	
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="slug">Slug<span style="color:#FF0000">*</span></label>
-                                    <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug" value="{{ $category->slug}}">
+                                    <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <input type="hidden" id="image_id" name="image_id" value="">
-                                    <label for="image">Image</label>
-                                    <div id="image" class="dropzone dz-clickable">
-                                        <div class="dz-message needsclick">
-                                            <br><span style="color: blue">Drop files here or click to upload.</span><br><br>
-                                        </div>
-                                    </div>
-                                </div>
-                                @if (!empty($category->image))
-                                    <div>
-                                        <img src="{{ asset('uploads/category/thumbnail/'.$category->image) }}" alt="">
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="status">Status</label>
+                                    <label for="email">Status<span style="color:#FF0000">*</span></label>
                                     <select name="status" id="status" class="form-control">
                                         <option value="">Select a status</option>
-                                        <option {{ ($category->status == 1) ? 'selected' : ''}} value="1">Active</option>
-                                        <option {{ ($category->status == 0) ? 'selected' : ''}} value="0">Block</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Block</option>
                                     </select>
                                     <p></p>
                                 </div>
-                            </div>
+                            </div>						
                         </div>
-                    </div>
+                    </div>							
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('categories.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="{{ route('sub-categories.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
                 </div>
             </form>
         </div>
     </section>
-
 @endsection
 
 @section('customJs')
     <script>
-        $("#updateCategoryForm").submit(function(e) {
+        $("#subCategoryForm").submit(function(e) {
             e.preventDefault();
-            var element = $(this);
-            $("button[type='submit']").prop('disable', true);
-
+            var element = $('#subCategoryForm');
+            $("button[type=submit]").prop('disable', true);
             $.ajax({
-                url: '{{ route('categories.update',$category->id ) }}',
-                type: 'put',
+                url: '{{ route('sub-categories.store') }}',
+                type: 'post',
                 data: element.serializeArray(),
                 dataType: 'json',
                 success: function(response) {
-                    $("button[type='submit']").prop('disable', false);
-
+                    $("button[type=submit]").prop('disable', false);
                     if (response["status"] == true) {
-                        window.location.href = "{{ route('categories.index') }}";
+                        window.location.href = "{{ route('sub-categories.index') }}";
+
+                        $("#category").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         $("#name").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         $("#slug").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         $("#status").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                     } else {
-                        if (response['notFound'] == true) {
-                            window.location.href = "{{ route('categories.index') }}";
-                        }
                         var errors = response['errors'];
 
+                        if (errors['category']) {
+                            $("#category").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['category']);
+                        } else {
+                            $("#category").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
+                        }
                         if (errors['name']) {
                             $("#name").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['name']);
                         } else {
@@ -128,7 +125,7 @@
         // get the slug based on the input value of name
         $("#name").change(function() {
             element = $(this);
-            $("button[type='submit']").prop('disable', true);
+            $("button[type=submit]").prop('disable', true);
             $.ajax({
                 url: '{{ route('getSlug') }}',
                 type: 'get',
@@ -137,36 +134,12 @@
                 },
                 dataType: 'json',
                 success: function(response) {
-                    $("button[type='submit']").prop('disable', false);
+                    $("button[type=submit]").prop('disable', false);
                     if (response["status"] == true) {
                         $("#slug").val(response["slug"]);
                     }
                 }
             });
         });
-
-        // Configure Dropzone for file upload
-        Dropzone.autoDiscover = false;
-        const dropzone = $("#image").dropzone({
-            init: function() {
-                this.on('addedfile', function(file) {
-                    if (this.files.length > 1) {
-                        this.removeFile(this.files[0]);
-                    }
-                });
-            },
-            url: '{{ route('temp-images.create') }}',
-            maxFiles: 1,
-            paramName: 'image',
-            addRemoveLinks: true,
-            acceptedFiles: "image/jpeg,image/png,image/gif",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(file, response) {
-                $("#image_id").val(response.image_id);
-            }
-        });
     </script>
-
 @endsection

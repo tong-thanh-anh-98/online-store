@@ -49,7 +49,7 @@
                                 <div class="mb-3">
                                     <label for="status">Status<span style="color:#FF0000">*</span></label>
                                     <select name="status" id="status" class="form-control">
-                                        <option value="">---Select a status---</option>
+                                        <option value="">Select a status</option>
                                         <option value="1">Active</option>
                                         <option value="0">Block</option>
                                     </select>

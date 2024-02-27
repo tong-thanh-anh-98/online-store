@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\TempImagesController;
+use App\Http\Controllers\Admin\SubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/categories/edit/{categoryId}', [CategoryController::class, 'edit'])->name('categories.edit');
         Route::put('/categories/{categoryId}', [CategoryController::class, 'update'])->name('categories.update');
         Route::delete('/categories/{categoryId}', [CategoryController::class, 'destroy'])->name('categories.delete');
+
+        // subcategory routes starts
+        Route::get('/sub-categories', [SubCategoryController::class, 'index'])->name('sub-categories.index');
+        Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-categories.create');
+        Route::post('/sub-categories', [SubCategoryController::class, 'store'])->name('sub-categories.store');
+        Route::get('/sub-categories/edit/{subCategory}', [SubCategoryController::class, 'edit'])->name('sub-categories.edit');
+        Route::put('/sub-categories/{subCategory}', [SubCategoryController::class, 'update'])->name('sub-categories.update');
+        Route::delete('/sub-categories/{subCategory}', [SubCategoryController::class, 'destroy'])->name('sub-categories.delete');
 
         // Route upload image
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
