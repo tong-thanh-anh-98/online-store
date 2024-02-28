@@ -43,7 +43,7 @@
                         <thead>
                             <tr>
                                 <th width="50">ID</th>
-                                <th>Image</th>
+                                <th></th>
                                 <th>Product</th>
                                 <th>Price</th>
                                 <th>Qty</th>
@@ -55,13 +55,13 @@
                         <tbody>
                             @if ($products->isNotEmpty())
                                 @foreach ($products as $product)
+                                    @php
+                                        $productImage = $product->product_images->first();
+                                    @endphp
                                     <tr>
                                         <td>{{ $product->id }}</td>
                                         <td>
-                                            @if ($product->product_images->isNotEmpty())
-                                                @php
-                                                    $productImage = $product->product_images->first();
-                                                @endphp
+                                            @if (!empty($productImage->image))
                                                 <img src="{{ asset('uploads/product/small/'.$productImage->image) }}" class="img-thumbnail" width="50px">
                                             @else
                                                 <img src="{{ asset('admin-assets/img/default-150x150.png') }}" class="img-thumbnail" width="50px">
@@ -98,7 +98,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="8">Records Not Found</td>
+                                    <td>Records Not Found</td>
                                 </tr>
                             @endif
                         </tbody>
