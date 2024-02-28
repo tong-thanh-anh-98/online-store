@@ -68,12 +68,12 @@ class CategoryController extends Controller
                 $ext = last($extArray);
 
                 $newImageName = $category->id.'.'.$ext;
-                $sPath = public_path().'/templates/'.$tempImage->name;
+                $sPath = public_path().'/temp/'.$tempImage->name;
                 $dPath = public_path().'/uploads/category/'.$newImageName;
                 File::copy($sPath, $dPath);
 
-                // generate image thumbnail section
-                $dPath = public_path().'/uploads/category/thumbnail/'.$newImageName;
+                // generate image thumb section
+                $dPath = public_path().'/uploads/category/thumb/'.$newImageName;
                 $img = Image::make($sPath);
                 $img->fit(450, 600, function ($constraint) {
                     $constraint->upsize();
@@ -162,12 +162,12 @@ class CategoryController extends Controller
                 $ext = last($extArray);
 
                 $newImageName = $category->id.'-'.time().'.'.$ext;
-                $sPath = public_path().'/templates/'.$tempImage->name;
+                $sPath = public_path().'/temp/'.$tempImage->name;
                 $dPath = public_path().'/uploads/category/'.$newImageName;
                 File::copy($sPath, $dPath);
 
                 // generate image thumb section
-                $dPath = public_path().'/uploads/category/thumbnail/'.$newImageName;
+                $dPath = public_path().'/uploads/category/thumb/'.$newImageName;
                 $img = Image::make($sPath);
                 $img->fit(450, 600, function ($constraint) {
                     $constraint->upsize();
@@ -178,7 +178,7 @@ class CategoryController extends Controller
                 $category->update();
 
                 // delete old image here
-                File::delete(public_path().'/uploads/category/thumbnail/'.$oldImage);
+                File::delete(public_path().'/uploads/category/thumb/'.$oldImage);
                 File::delete(public_path().'/uploads/category/'.$oldImage);
             }
 
@@ -218,7 +218,7 @@ class CategoryController extends Controller
             ]);
         }
 
-        File::delete(public_path().'/uploads/category/thumbnail/'.$category->image);
+        File::delete(public_path().'/uploads/category/thumb/'.$category->image);
         File::delete(public_path().'/uploads/category/'.$category->image);
 
         $category->delete();

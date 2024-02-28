@@ -39,10 +39,10 @@ class ProductController extends Controller
             'title' => 'required',
             'slug' => 'required|unique:products',
             'price' => 'required|numeric',
+            'sku' => 'required|unique:products',
+            'track_qty' => 'required|in:Yes,No',
             'category' => 'required|numeric',
             'is_featured' => 'required|in:Yes,No',
-            'sku' => 'required|numeric',
-            'track_qty' => 'required|in:Yes,No',
             'status' => 'required',
         ];
 
@@ -88,9 +88,10 @@ class ProductController extends Controller
                     $productImage->image = $imageName;
                     $productImage->save();
 
-                    /* generate product thumbnail */
-                    // large image
-                    $sourcePath = public_path().'/templates/'.$tempImageInfo->name;
+                    /* generate product thumbnail
+                     *large image
+                     */
+                    $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
                     $destPath = public_path().'/uploads/product/large/'.$tempImageInfo->name;
                     $image = Image::make($sourcePath);
                     $image->resize(1400, null, function ($constraint) {
@@ -98,7 +99,7 @@ class ProductController extends Controller
                     });
                     $image->save($destPath);
 
-                    // small image
+                    /* small image */
                     $destPath = public_path().'/uploads/product/small/'.$tempImageInfo->name;
                     $image = Image::make($sourcePath);
                     $image->fit(300, 300);
