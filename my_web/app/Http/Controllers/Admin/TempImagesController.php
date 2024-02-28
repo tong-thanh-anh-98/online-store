@@ -10,12 +10,12 @@ use Intervention\Image\Facades\Image;
 class TempImagesController extends Controller
 {
     /**
-     * Create a new image.
+     * Create a temporary image.
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the status, image ID, and message.
-     */
+     * @return \Illuminate\Http\JsonResponse
+     */ 
     public function create(Request $request)
     {
         $image = $request->image;

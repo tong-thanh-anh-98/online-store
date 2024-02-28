@@ -110,10 +110,11 @@ class CategoryController extends Controller
     public function edit($categoryId, Request $request)
     {
         $category = Category::find($categoryId);
+        
         if (empty($category)) {
-            return redirect()->route('categories.index');
+            return redirect()->route('categories.index')->with('error', 'Category not found.');
         }
-
+        
         return view('admin.category.edit', compact('category'));
     }
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TempImagesController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductSubCategoryController;
@@ -69,9 +70,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/sub-categories', [SubCategoryController::class, 'index'])->name('sub-categories.index');
         Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-categories.create');
         Route::post('/sub-categories', [SubCategoryController::class, 'store'])->name('sub-categories.store');
-        Route::get('/sub-categories/edit/{subCategory}', [SubCategoryController::class, 'edit'])->name('sub-categories.edit');
-        Route::put('/sub-categories/{subCategory}', [SubCategoryController::class, 'update'])->name('sub-categories.update');
-        Route::delete('/sub-categories/{subCategory}', [SubCategoryController::class, 'destroy'])->name('sub-categories.delete');
+        Route::get('/sub-categories/edit/{subCategoryId}', [SubCategoryController::class, 'edit'])->name('sub-categories.edit');
+        Route::put('/sub-categories/{subCategoryId}', [SubCategoryController::class, 'update'])->name('sub-categories.update');
+        Route::delete('/sub-categories/{subCategoryId}', [SubCategoryController::class, 'destroy'])->name('sub-categories.delete');
 
         Route::get('/brands', [BrandController::class, 'index'])->name('brands.index');
         Route::get('/brands/create', [BrandController::class, 'create'])->name('brands.create');
