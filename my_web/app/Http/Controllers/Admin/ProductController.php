@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\SubCategory;
 use App\Models\TempImage;
+use App\Models\SubCategory;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 
@@ -113,7 +114,7 @@ class ProductController extends Controller
                     /* generate product thumbnail
                      *large image
                      */
-                    $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
+                    $sourcePath = public_path().'/uploads/template/'.$tempImageInfo->name;
                     $destPath = public_path().'/uploads/product/large/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->resize(1400, null, function ($constraint) {
@@ -232,5 +233,34 @@ class ProductController extends Controller
                 'errors' => $validator->errors(),
             ]);
         }
+    }
+
+    public function destroy($productID, Request $request)
+    {
+        $product = Product::find($productID);
+        if (empty($product)) {
+            session()->flash('error','Product not found.');
+            return response()->json([
+                'status' => false,
+                'notFound' => true,
+            ]);
+        }
+
+        $productImages = ProductImage::where('product_id',$productID)->get();
+        if (!empty($productImages)) {
+            foreach ($productImages as $productImage) {
+                File::delete(public_path('uploads/product/large/'.$productImage->image));
+                File::delete(public_path('uploads/product/small/'.$productImage->image));
+            }
+            ProductImage::where('product_id',$productID)->delete();
+        }
+
+        $product->delete();
+        session()->flash('success','Product deleted successfully.');
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Product deleted successfully.',
+        ]);
     }
 }
