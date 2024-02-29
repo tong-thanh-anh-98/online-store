@@ -46,19 +46,34 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row" id="category-gallery">
+                                <div class="col-md-3">
                                 @if (!empty($category->image))
-                                    <div>
-                                        <img src="{{ asset('uploads/category/thumbnail/'.$category->image) }}" alt="">
+                                    <div class="card">
+                                        <img src="{{ asset('uploads/category/thumbnail/'.$category->image) }}" height="300" width="300">
                                     </div>
                                 @endif
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="status">Status</label>
+                                    <label for="status">Status<span style="color:#FF0000">*</span></label>
                                     <select name="status" id="status" class="form-control">
                                         <option value="">Select a status</option>
                                         <option {{ ($category->status == 1) ? 'selected' : ''}} value="1">Active</option>
                                         <option {{ ($category->status == 0) ? 'selected' : ''}} value="0">Block</option>
+                                    </select>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="showHome">Show on Home<span style="color:#FF0000">*</span></label>
+                                    <select name="showHome" id="showHome" class="form-control">
+                                        <option value="">Select display on Home</option>
+                                        <option {{ ($category->showHome == 'Yes') ? 'selected' : ''}} value="Yes">Yes</option>
+                                        <option {{ ($category->showHome == 'No') ? 'selected' : ''}} value="No">No</option>
                                     </select>
                                     <p></p>
                                 </div>
@@ -96,6 +111,7 @@
                         $("#name").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         $("#slug").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         $("#status").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
+                        $("#showHome").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                     } else {
                         if (response['notFound'] == true) {
                             window.location.href = "{{ route('categories.index') }}";
@@ -116,6 +132,11 @@
                             $("#status").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['status']);
                         } else {
                             $("#status").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
+                        }
+                        if (errors['showHome']) {
+                            $("#showHome").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['showHome']);
+                        } else {
+                            $("#showHome").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         }
                     }
                 },

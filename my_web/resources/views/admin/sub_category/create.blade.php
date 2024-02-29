@@ -58,7 +58,18 @@
                                     </select>
                                     <p></p>
                                 </div>
-                            </div>						
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="showHome">Show on Home<span style="color:#FF0000">*</span></label>
+                                    <select name="showHome" id="showHome" class="form-control">
+                                        <option value="">Select display on Home</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <p></p>
+                                </div>
+                            </div>					
                         </div>
                     </div>							
                 </div>
@@ -91,6 +102,7 @@
                         $("#name").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         $("#slug").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         $("#status").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
+                        $("#showHome").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                     } else {
                         var errors = response['errors'];
 
@@ -113,6 +125,11 @@
                             $("#status").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['status']);
                         } else {
                             $("#status").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
+                        }
+                        if (errors['showHome']) {
+                            $("#showHome").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['showHome']);
+                        } else {
+                            $("#showHome").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html();
                         }
                     }
                 },

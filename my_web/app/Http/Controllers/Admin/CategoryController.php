@@ -52,6 +52,7 @@ class CategoryController extends Controller
             'name' => 'required',
             'slug' => 'required|unique:categories',
             'status' => 'required',
+            'showHome' => 'required',
         ]);
 
         if ($validator->passes()) {
@@ -59,6 +60,7 @@ class CategoryController extends Controller
             $category->name = $request->name;
             $category->slug = $request->slug;
             $category->status = $request->status;
+            $category->showHome = $request->showHome;
             $category->save();
 
             // save image section
@@ -145,6 +147,7 @@ class CategoryController extends Controller
             'name' => 'required',
             'slug' => 'required|unique:categories,slug,'.$category->id.',id',
             'status' => 'required',
+            'showHome' => 'required',
         ]);
 
         if ($validator->passes()) {
@@ -152,6 +155,7 @@ class CategoryController extends Controller
             $category->name = $request->name;
             $category->slug = $request->slug;
             $category->status = $request->status;
+            $category->showHome = $request->showHome;
             $category->update();
 
             $oldImage = $category->image;

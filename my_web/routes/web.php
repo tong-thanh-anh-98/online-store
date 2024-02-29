@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+
+Route::get('/', [FrontController::class, 'index'])->name('front.home');
 
 /**
  * Define the admin routes.

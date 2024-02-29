@@ -47,6 +47,7 @@
                                 <th>Category Name</th>
                                 <th>Slug</th>
                                 <th width="100">Status</th>
+                                <th width="100">Show on Home</th>
                                 <th width="100">Action</th>
                             </tr>
                         </thead>
@@ -60,6 +61,17 @@
                                         <td>{{ $subCategory->slug }}</td>
                                         <td>
                                             @if ($subCategory->status == 1)
+                                                <svg class="text-success-500 h-6 w-6 text-success" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                            @else
+                                                <svg class="text-danger h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($subCategory->showHome == 'Yes')
                                                 <svg class="text-success-500 h-6 w-6 text-success" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                 </svg>
@@ -104,12 +116,9 @@
     <script>
         // sub category delete section
         function deleteSubCategory(id) {
-
             var url = '{{ route('sub-categories.delete', 'ID') }}';
             var newUrl = url.replace('ID', id)
-
             if (confirm('Are you sure want to delete category?')) {
-
                 $.ajax({
                     url: newUrl,
                     type: "delete",
