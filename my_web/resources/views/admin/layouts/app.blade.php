@@ -23,10 +23,10 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- navbar section -->
-        @include('layouts.inc.navbar')
+        @include('admin.layouts.inc.navbar')
 
         <!-- sidebar section -->
-        @include('layouts.inc.sidebar')
+        @include('admin.layouts.inc.sidebar')
 
         <!-- contents section -->
         <div class="content-wrapper">
@@ -34,7 +34,7 @@
         </div>
 
         <!-- footer section -->
-        @include('layouts.inc.footer')        
+        @include('admin.layouts.inc.footer')        
     </div>
 
 <!-- jQuery -->
