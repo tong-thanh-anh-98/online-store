@@ -8,6 +8,13 @@ use App\Http\Controllers\Controller;
 
 class ProductSubCategoryController extends Controller
 {
+    /**
+     * Get the subcategories based on the given category ID.
+     *
+     * @param Request $request The HTTP request object.
+     *
+     * @return \Illuminate\Http\Response The response containing the subcategories.
+     */
     public function index(Request $request)
     {
         if (!empty($request->category_id)) {
