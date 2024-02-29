@@ -235,6 +235,14 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * Delete a product and its associated images.
+     *
+     * @param int $productID The ID of the product to delete.
+     * @param Request $request The HTTP request object.
+     *
+     * @return \Illuminate\Http\Response The response for deleting the product.
+     */
     public function destroy($productID, Request $request)
     {
         $product = Product::find($productID);
