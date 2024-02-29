@@ -303,6 +303,20 @@
         // delete the HTML element with the corresponding id
         function deleteImage(id) {
             $('#image-row-'+id).remove();
+            if (confirm('Are you sure want to delete image?')) {
+                $.ajax({
+                    url: '{{ route('product-images.destroy') }}',
+                    type: "delete",
+                    data: {id:id},
+                    success: function (response) {
+                        if (response.status == true) {
+                            alert(response.message);
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                });
+            }
         }
     </script>
 @endsection

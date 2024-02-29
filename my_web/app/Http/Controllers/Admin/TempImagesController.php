@@ -10,12 +10,10 @@ use Intervention\Image\Facades\Image;
 class TempImagesController extends Controller
 {
     /**
-     * Create a temporary image.
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */ 
+     * Create a new template image.
+     * The response for creating the template image.
+     * @param Request $request The HTTP request object.
+     */
     public function create(Request $request)
     {
         $image = $request->image;
@@ -28,11 +26,11 @@ class TempImagesController extends Controller
             $tempImage->name = $newName;
             $tempImage->save();
 
-            $image->move(public_path().'/temp', $newName);
+            $image->move(public_path().'/uploads/template', $newName);
 
             // generate thumb
-            $sourcePath = public_path().'/temp/'.$newName;
-            $destPath = public_path().'/temp/thumb/'.$newName;
+            $sourcePath = public_path().'/uploads//template/'.$newName;
+            $destPath = public_path().'/uploads/template/thumbnail/'.$newName;
             $image = Image::make($sourcePath);
             $image->fit(300, 275);
             $image->save($destPath);
@@ -40,7 +38,7 @@ class TempImagesController extends Controller
             return response()->json([
                 'status' => true,
                 'image_id' => $tempImage->id,
-                'ImagePath' => asset('/temp/thumb/'.$newName),
+                'ImagePath' => asset('/uploads//template/thumbnail/'.$newName),
                 'message' => 'Image uploaded successfully!',
             ]);
         }

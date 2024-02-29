@@ -16,6 +16,7 @@
 + php artisan make:controller Admin/BrandController
 + php artisan make:controller Admin/ProductController
 + php artisan make:controller Admin/ProductSubCategoryController
++ php artisan make:controller Admin/ProductImageController
 
 - Factory
 + php artisan make:factory CategoryFactory

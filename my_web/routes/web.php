@@ -85,10 +85,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-        Route::get('/products/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::get('/products/edit/{productID}', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{productID}', [ProductController::class, 'update'])->name('products.update');
 
         // products subcategory routes
         Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
+
+        // Route update product image
+        Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
+        Route::delete('/product-images', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 
         // Route upload image
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
