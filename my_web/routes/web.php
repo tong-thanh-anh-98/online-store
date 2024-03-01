@@ -34,7 +34,7 @@ use App\Http\Controllers\StoreController;
  * @return \Illuminate\Contracts\Routing\UrlGenerator The URL generator for the route.
  */
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
-Route::get('/store', [StoreController::class, 'index'])->name('front.store');
+Route::get('/store/{categorySlug?}/{subCategorySlug?}', [StoreController::class, 'index'])->name('front.store');
 
 /**
  * Define the admin routes.
