@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TempImagesController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductSubCategoryController;
+use App\Http\Controllers\StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ use App\Http\Controllers\Admin\ProductSubCategoryController;
  * @return \Illuminate\Contracts\Routing\UrlGenerator The URL generator for the route.
  */
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
+Route::get('/store', [StoreController::class, 'index'])->name('front.store');
 
 /**
  * Define the admin routes.

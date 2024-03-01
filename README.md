@@ -22,6 +22,7 @@
 + php artisan make:controller Admin/ProductImageController
 * Front
 + php artisan make:controller FrontController
++ php artisan make:controller StoreController
 
 - Factory
 + php artisan make:factory CategoryFactory
