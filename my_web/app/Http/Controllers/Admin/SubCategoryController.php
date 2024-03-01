@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -141,7 +142,7 @@ class SubCategoryController extends Controller
         if ($validator->passes()) {
             $subCategory->category_id = $request->category;
             $subCategory->name = $request->name;
-            $subCategory->slug = $request->slug;
+            $subCategory->slug = Str::slug($request->slug);
             $subCategory->status = $request->status;
             $subCategory->showHome = $request->showHome;
             $subCategory->update();

@@ -9,6 +9,11 @@ class Category extends Model
 {
     use HasFactory;
 
+    /**
+     * Get the subcategories associated with this model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany The relationship between the current model and the SubCategory model.
+     */
     public function sub_category()
     {
         return $this->hasMany(SubCategory::class);

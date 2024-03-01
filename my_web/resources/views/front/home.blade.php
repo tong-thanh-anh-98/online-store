@@ -6,7 +6,7 @@
 			<div class="col-lg-4 logo">
 				<a href="index.php" class="text-decoration-none">
 					<span class="h1 text-uppercase text-primary bg-dark px-2">Online</span>
-					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">SHOP</span>
+					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">STORE</span>
 				</a>
 			</div>
 			<div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
@@ -29,7 +29,7 @@
 		<nav class="navbar navbar-expand-xl" id="navbar">
 			<a href="index.php" class="text-decoration-none mobile-logo">
 				<span class="h2 text-uppercase text-primary bg-dark">Online</span>
-				<span class="h2 text-uppercase text-white px-2">SHOP</span>
+				<span class="h2 text-uppercase text-white px-2">STORE</span>
 			</a>
 			<button class="navbar-toggler menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       			<span class="navbar-toggler-icon icon-menu"></span>
@@ -71,18 +71,18 @@
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <!-- <img src="images/carousel-1.jpg" class="d-block w-100" alt=""> -->
+                    <img src="{{ asset('front-assets/images/default-150x150.png') }}" class="d-block w-100" alt="">
 
                     <picture>
-                        <source media="(max-width: 799px)" srcset="{{ asset('front-assets/images/carousel-1-m.jpg') }}" />
-                        <source media="(min-width: 800px)" srcset="{{ asset('front-assets/images/carousel-1.jpg') }}" />
-                        <img src="{{ asset('front-assets/images/carousel-1.jpg') }}" alt="" />
+                        <source media="(max-width: 799px)" srcset="{{ asset('front-assets/images/default-150x150.png') }}" />
+                        <source media="(min-width: 800px)" srcset="{{ asset('front-assets/images/default-150x150.png') }}" />
+                        <img src="{{ asset('front-assets/images/default-150x150.png') }}" alt="" />
                     </picture>
 
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3">
-                            <h1 class="display-4 text-white mb-3">Kids Fashion</h1>
-                            <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                            <h1 class="display-4 text-white mb-3">Text text.</h1>
+                            <p class="mx-md-5 px-5">Text text text text text text text text text text. Text text text text text text text text text text.</p>
                             <a class="btn btn-outline-light py-2 px-4 mt-3" href="#">Shop Now</a>
                         </div>
                     </div>
@@ -90,32 +90,32 @@
                 <div class="carousel-item">
                     
                     <picture>
-                        <source media="(max-width: 799px)" srcset="{{ asset('front-assets/images/carousel-2-m.jpg') }}" />
-                        <source media="(min-width: 800px)" srcset="{{ asset('front-assets/images/carousel-2.jpg') }}" />
-                        <img src="{{ asset('front-assets/images/carousel-2.jpg') }}" alt="" />
+                        <source media="(max-width: 799px)" srcset="{{ asset('front-assets/images/default-150x150.png') }}" />
+                        <source media="(min-width: 800px)" srcset="{{ asset('front-assets/images/default-150x150.png') }}" />
+                        <img src="{{ asset('front-assets/images/default-150x150.png') }}" alt="" />
                     </picture>
 
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3">
-                            <h1 class="display-4 text-white mb-3">Womens Fashion</h1>
-                            <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                            <h1 class="display-4 text-white mb-3">Text text text.</h1>
+                            <p class="mx-md-5 px-5">Text text text text text text text text text text. Text text text text text text text text text text.</p>
                             <a class="btn btn-outline-light py-2 px-4 mt-3" href="#">Shop Now</a>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <!-- <img src="images/carousel-3.jpg" class="d-block w-100" alt=""> -->
+                    <img src="{{ asset('front-assets/images/default-150x150.png') }}" class="d-block w-100" alt="">
 
                     <picture>
-                        <source media="(max-width: 799px)" srcset="{{ asset('front-assets/images/carousel-2.jpg') }}" />
-                        <source media="(min-width: 800px)" srcset="{{ asset('front-assets/images/carousel-2.jpg') }}" />
-                        <img src="{{ asset('front-assets/images/carousel-2.jpg') }}" alt="" />
+                        <source media="(max-width: 799px)" srcset="{{ asset('front-assets/images/default-150x150.png') }}" />
+                        <source media="(min-width: 800px)" srcset="{{ asset('front-assets/images/default-150x150.png') }}" />
+                        <img src="{{ asset('front-assets/images/default-150x150.png') }}" alt="" />
                     </picture>
 
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3">
-                            <h1 class="display-4 text-white mb-3">Shop Online at Flat 70% off on Branded Clothes</h1>
-                            <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                            <h1 class="display-4 text-white mb-3">Text text text text.</h1>
+                            <p class="mx-md-5 px-5">Text text text text text text text text text text. Text text text text text text text text text text.</p>
                             <a class="btn btn-outline-light py-2 px-4 mt-3" href="#">Shop Now</a>
                         </div>
                     </div>
@@ -172,7 +172,9 @@
                     <div class="col-lg-3">
                         <div class="cat-card">
                             <div class="left">
-                                <img src="{{ asset('front-assets/images/default-150x150.png') }}" alt="" class="img-fluid">
+                                @if ($category->image != "")
+                                    <img src="{{ asset('uploads/category/thumbnail/'.$category->image) }}" alt="" class="img-fluid">
+                                @endif
                             </div>
                             <div class="right">
                                 <div class="cat-data">
@@ -194,27 +196,41 @@
                 <h2>Featured Products</h2>
             </div>    
             <div class="row pb-3">
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('front-assets/images/default-150x150.png') }}" alt=""></a>
-                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
+                @if ($isFeatured->isNotEmpty())
+                    @foreach ($isFeatured as $product)
+                    <div class="col-md-3">
+                        <div class="card product-card">
+                            <div class="product-image position-relative">
+                                @php
+                                    $productImage = $product->product_images->first();
+                                @endphp
+                                @if (!empty($productImage->image))
+                                    <a href="" class="product-img"><img class="card-img-top" src="{{ asset('uploads/product/small/'.$productImage->image) }}" alt=""></a>
+                                @else
+                                    <a href="" class="product-img"><img class="card-img-top" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt=""></a>
+                                @endif
+                                <a class="whishlist" href="#"><i class="far fa-heart"></i></a>                            
+    
+                                <div class="product-action">
+                                    <a class="btn btn-dark" href="#">
+                                        <i class="fa fa-shopping-cart"></i> Add To Cart
+                                    </a>                            
+                                </div>
+                            </div>                        
+                            <div class="card-body text-center mt-3">
+                                <a class="h6 link" href="#">{{ $product->title }}</a>
+                                <div class="price mt-2">
+                                    <span class="h5"><strong>${{ $product->price }}</strong></span>
 
-                            <div class="product-action">
-                                <a class="btn btn-dark" href="#">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
-                                </a>                            
-                            </div>
-                        </div>                        
-                        <div class="card-body text-center mt-3">
-                            <a class="h6 link" href="product.php">Dummy Product Title</a>
-                            <div class="price mt-2">
-                                <span class="h5"><strong>$100</strong></span>
-                                <span class="h6 text-underline"><del>$120</del></span>
-                            </div>
-                        </div>                        
-                    </div>                                               
-                </div>              
+                                    @if ($product->compare_price > 0)
+                                        <span class="h6 text-underline"><del>${{ $product->compare_price }}</del></span>
+                                    @endif
+                                </div>
+                            </div>                        
+                        </div>                                               
+                    </div>              
+                    @endforeach
+                @endif
             </div>
         </div>
     </section>
@@ -225,27 +241,41 @@
                 <h2>Latest Produsts</h2>
             </div>    
             <div class="row pb-3">
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('front-assets/images/default-150x150.png') }}" alt=""></a>
-                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
+                @if ($latestProducts->isNotEmpty())
+                    @foreach ($latestProducts as $product)
+                    <div class="col-md-3">
+                        <div class="card product-card">
+                            <div class="product-image position-relative">
+                                @php
+                                    $productImage = $product->product_images->first();
+                                @endphp
+                                @if (!empty($productImage->image))
+                                    <a href="" class="product-img"><img class="card-img-top" src="{{ asset('uploads/product/small/'.$productImage->image) }}" alt=""></a>
+                                @else
+                                    <a href="" class="product-img"><img class="card-img-top" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt=""></a>
+                                @endif
+                                <a class="whishlist" href="#"><i class="far fa-heart"></i></a>                            
+    
+                                <div class="product-action">
+                                    <a class="btn btn-dark" href="#">
+                                        <i class="fa fa-shopping-cart"></i> Add To Cart
+                                    </a>                            
+                                </div>
+                            </div>                        
+                            <div class="card-body text-center mt-3">
+                                <a class="h6 link" href="#">{{ $product->title }}</a>
+                                <div class="price mt-2">
+                                    <span class="h5"><strong>${{ $product->price }}</strong></span>
 
-                            <div class="product-action">
-                                <a class="btn btn-dark" href="#">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
-                                </a>                            
-                            </div>
-                        </div>                        
-                        <div class="card-body text-center mt-3">
-                            <a class="h6 link" href="product.php">Dummy Product Title</a>
-                            <div class="price mt-2">
-                                <span class="h5"><strong>$100</strong></span>
-                                <span class="h6 text-underline"><del>$120</del></span>
-                            </div>
-                        </div>                        
-                    </div>                                               
-                </div>  
+                                    @if ($product->compare_price > 0)
+                                        <span class="h6 text-underline"><del>${{ $product->compare_price }}</del></span>
+                                    @endif
+                                </div>
+                            </div>                        
+                        </div>                                               
+                    </div>              
+                    @endforeach
+                @endif  
             </div>
         </div>
     </section>
@@ -256,10 +286,11 @@
 			<div class="col-md-4">
 				<div class="footer-card">
 					<h3>Get In Touch</h3>
-					<p>No dolore ipsum accusam no lorem. <br>
-					123 Street, New York, USA <br>
-					exampl@example.com <br>
-					000 000 0000</p>
+					<p>
+                        Address: 61/48 Street 19, Ward 8, Go Vap District, Ho Chi Minh City.<br>
+                        Email: thanhanhtong.285@gmail.com<br>
+                        Phone number: 0987 457 830
+                    </p>
 				</div>
 			</div>
 

@@ -25,12 +25,13 @@ use App\Http\Controllers\Admin\ProductSubCategoryController;
 |
 */
 
-/* 
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
+/**
+ * Route for the home page.
+ *
+ * @param \App\Http\Controllers\FrontController@index The controller method responsible for handling the request.
+ *
+ * @return \Illuminate\Contracts\Routing\UrlGenerator The URL generator for the route.
+ */
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
 
 /**

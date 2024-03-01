@@ -44,7 +44,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="slug">Slug<span style="color:#FF0000">*</span></label>
-                                    <input type="text" readonly value="{{ $subCategory->slug }}" name="slug" id="slug" class="form-control" placeholder="Slug">
+                                    <input type="text" value="{{ $subCategory->slug }}" name="slug" id="slug" class="form-control" placeholder="Slug">
                                     <p></p>
                                 </div>
                             </div>
