@@ -162,28 +162,28 @@
 		</div>
 	</footer>
 
-<script src="{{ asset('front-assets/js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('front-assets/js/bootstrap.bundle.5.1.3.min.js') }}"></script>
-<script src="{{ asset('front-assets/js/instantpages.5.1.0.min.js') }}"></script>
-<script src="{{ asset('front-assets/js/lazyload.17.6.0.min.js') }}"></script>
-<script src="{{ asset('front-assets/js/slick.min.js') }}"></script>
-<script src="{{ asset('front-assets/js/custom.js') }}"></script>
-<script src="{{ asset('front-assets/js/ion.rangeSlider.min.js') }}"></script>
+	<script src="{{ asset('front-assets/js/jquery-3.6.0.min.js') }}"></script>
+	<script src="{{ asset('front-assets/js/bootstrap.bundle.5.1.3.min.js') }}"></script>
+	<script src="{{ asset('front-assets/js/instantpages.5.1.0.min.js') }}"></script>
+	<script src="{{ asset('front-assets/js/lazyload.17.6.0.min.js') }}"></script>
+	<script src="{{ asset('front-assets/js/slick.min.js') }}"></script>
+	<script src="{{ asset('front-assets/js/custom.js') }}"></script>
+	<script src="{{ asset('front-assets/js/ion.rangeSlider.min.js') }}"></script>
 
-<script>
-	window.onscroll = function() {myFunction()};
-	var navbar = document.getElementById("navbar");
-	var sticky = navbar.offsetTop;
-	function myFunction() {
-		if (window.pageYOffset >= sticky) {
-			navbar.classList.add("sticky")
-		} else {
-			navbar.classList.remove("sticky");
+	<script>
+		window.onscroll = function() {myFunction()};
+		var navbar = document.getElementById("navbar");
+		var sticky = navbar.offsetTop;
+		function myFunction() {
+			if (window.pageYOffset >= sticky) {
+				navbar.classList.add("sticky")
+			} else {
+				navbar.classList.remove("sticky");
+			}
 		}
-	}
-</script>
+	</script>
 
-@yield('customJs')
+	@yield('customJs')
 
 </body>
 </html>

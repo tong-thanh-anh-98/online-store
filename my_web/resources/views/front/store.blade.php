@@ -84,14 +84,11 @@
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-end mb-4">
                             <div class="ml-2">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Price High</a>
-                                        <a class="dropdown-item" href="#">Price Low</a>
-                                    </div>
-                                </div>                                    
+                                <select name="sort" id="sort" class="form-control">
+                                    <option value="latest" {{ ($sort == 'latest') ? 'selected' : '' }}>Latest</option>
+                                    <option value="price_desc" {{ ($sort == 'price_desc') ? 'selected' : '' }}>Price High</option>
+                                    <option value="price_asc" {{ ($sort == 'price_asc') ? 'selected' : '' }}>Price Low</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -131,7 +128,6 @@
                             </div>
                         @endforeach
                     @endif  
-                <!--
                     <div class="col-md-12 pt-5">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
@@ -147,7 +143,6 @@
                             </ul>
                         </nav>
                     </div>
-                -->
                 </div>
             </div>
         </div>
@@ -161,42 +156,41 @@
         const rangeSlider = $('.js-range-slider').ionRangeSlider({
             type: "double",
             min: 0,
-            max: 1500,
-            from: 0,
+            max: 1000,
+            from: {{ $priceMin }},
             step: 10,
-            to: 500,
+            to: {{ $priceMax }},
             skin: "round",
             max_postfix: "+",
             prefix: "$",
             onFinish: applyFilters
         });
-        
+
         const slider = rangeSlider.data("ionRangeSlider");
 
-        $('.brand-label').change(function() {
-            applyFilters();
-        });
+        $('.brand-label').change(applyFilters);
+        $('#sort').change(applyFilters);
 
         function applyFilters() {
-            const brands = [];
-            $('.brand-label').each(function() {
-                if ($(this).is(':checked')) {
-                    brands.push($(this).val());
-                }
-            });
+            const brands = $('.brand-label:checked').map(function() {
+                return $(this).val();
+            }).get();
             console.log(brands.toString());
 
-            const url = '{{ url()->current() }}?';
-            const priceMin = slider.result.from;
-            const priceMax = slider.result.to;
-
             const queryParams = new URLSearchParams();
-            queryParams.set('price_min', priceMin);
-            queryParams.set('price_max', priceMax);
-            queryParams.set('brand', brands.join(','));
+            queryParams.set('price_min', slider.result.from);
+            queryParams.set('price_max', slider.result.to);
 
-            const newUrl = url + queryParams.toString();
-            window.location.href = newUrl;
+            if (brands.length > 0) {
+                queryParams.set('brand', brands.join(','));
+            }
+
+            const url = new URL('{{ url()->current() }}');
+            url.search = queryParams.toString();
+
+            url.searchParams.append('sort', $('#sort').val());
+
+            window.location.href = url.toString();
         }
     });
 </script>
