@@ -37,6 +37,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&family=Raleway:ital,wght@0,400;0,600;0,800;1,200&family=Roboto+Condensed:wght@400;700&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 	<!-- Fav Icon -->
 	<link rel="shortcut icon" type="image/x-icon" href="#" />
 </head>
@@ -89,7 +90,7 @@
 										<ul class="dropdown-menu dropdown-menu-dark">
 											@foreach ($category->sub_category as $subCategory)
 												<li>
-													<a class="dropdown-item nav-link" href="#">{{ $subCategory->name }}</a>
+													<a class="dropdown-item nav-link" href="{{ route('front.store',[$category->slug,$subCategory->slug]) }}">{{ $subCategory->name }}</a>
 												</li>
 											@endforeach
 										</ul>
@@ -169,6 +170,7 @@
 	<script src="{{ asset('front-assets/js/slick.min.js') }}"></script>
 	<script src="{{ asset('front-assets/js/custom.js') }}"></script>
 	<script src="{{ asset('front-assets/js/ion.rangeSlider.min.js') }}"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
 
 	<script>
 		window.onscroll = function() {myFunction()};

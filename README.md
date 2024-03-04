@@ -26,6 +26,10 @@
 
 - Factory
 + php artisan make:factory CategoryFactory
++ php artisan make:factory ProductFactory
+
+- DB Seed
++ php artisan db:seed
 
 - Create user account with tinker:
 + php artisan tinker

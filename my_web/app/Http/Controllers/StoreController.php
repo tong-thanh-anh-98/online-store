@@ -62,8 +62,8 @@ class StoreController extends Controller
         } else {
             $products = $products->orderBy('id','DESC');
         }
-        
-        $products = $products->get();
+
+        $products = $products->paginate(12);
 
         $data = [];
         $data['categories'] = $categories;
