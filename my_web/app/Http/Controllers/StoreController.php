@@ -79,6 +79,13 @@ class StoreController extends Controller
         return view('front.store',$data);
     }
 
+    /**
+     * Display the product page for a specific product.
+     *
+     * @param string $slug The slug of the product.
+     *
+     * @return \Illuminate\Contracts\View\View The view for the product page.
+     */
     public function Product($slug)
     {
         $product = Product::where('slug',$slug)->with('product_images')->first();
@@ -87,8 +94,16 @@ class StoreController extends Controller
             abort(404);
         }
 
+        /* Fetch related products */
+        $relatedProducts =[];
+        if ($product->related_products != '') {
+            $productArray = explode(',',$product->related_products);
+            $relatedProducts = Product::whereIn('id', $productArray)->with('product_images')->get();
+        }
+
         $data = [];
         $data['product'] = $product;
+        $data['relatedProducts'] = $relatedProducts;
 
         return view('front.product', $data);
     }

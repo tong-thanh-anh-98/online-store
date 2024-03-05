@@ -109,7 +109,7 @@
                                             <label for="barcode">Barcode</label>
                                             <input type="text" name="barcode" id="barcode" class="form-control" placeholder="Barcode">
                                         </div>
-                                    </div>   
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <div class="custom-control custom-checkbox">
@@ -126,6 +126,17 @@
                                     </div>                                         
                                 </div>
                             </div>	                                                                      
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">	
+                                <h2 class="h4 mb-3">Related product</h2>
+                                <div class="mb-3">
+                                    <select multiple class="related-product w-100" name="related_products[]" id="related_products">
+                                       
+                                    </select>
+                                    <p class="error"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -192,7 +203,7 @@
                                     <p class="error"></p>
                                 </div>
                             </div>
-                        </div>                                 
+                        </div>                                
                     </div>
                 </div>
                 
@@ -330,5 +341,21 @@
                 });
             }
         }
+
+        // Select-2
+        $('.related-product').select2({
+            ajax: {
+                url: '{{ route('products.getProducts') }}',
+                dataType: 'json',
+                tags: true,
+                multiple: true,
+                minimumInputLength: 3,
+                processResults: function (data) {
+                    return {
+                        results: data.tags
+                    };
+                }
+            }
+        });
     </script>
 @endsection

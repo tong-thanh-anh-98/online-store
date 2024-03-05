@@ -49,10 +49,9 @@
                             <small class="pt-1">(99 Reviews)</small>
                         </div>
 
+                        <h2 class="price ">${{ $product->price }}</h2>
                         @if ($product->compare_price > 0)
                             <h2 class="price text-secondary"><del>${{ $product->compare_price }}</del></h2>
-                        @else
-                            <h2 class="price ">${{ $product->price }}</h2>
                         @endif
 
                         {!! $product->short_description !!}
@@ -91,6 +90,7 @@
         </div>
     </section>
 
+    @if (!empty($relatedProducts))
     <section class="pt-5 section-8">
         <div class="container">
             <div class="section-title">
@@ -98,33 +98,41 @@
             </div> 
             <div class="col-md-12">
                 <div id="related-products" class="carousel">
-                    <div class="card product-card">
-                        <div class="product-image position-relative">
-                            <a href="" class="product-img">
-                                @if (!empty($productImage->image))
-                                    <img class="card-img-top" src="{{ asset('uploads/product/small/'.$productImage->image) }}" alt="">
-                                @else
-                                    <img class="card-img-top" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt="">
-                                @endif
-                            </a>
-                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
+                    @foreach ($relatedProducts as $relatedProduct)
+                        @php
+                            $productImage = $relatedProduct->product_images->first();
+                        @endphp
+                        <div class="card product-card">
+                            <div class="product-image position-relative">
+                                <a href="{{ route('front.product',$product->slug) }}" class="product-img">
+                                    @if (!empty($productImage->image))
+                                        <img class="card-img-top" src="{{ asset('uploads/product/small/'.$productImage->image) }}" alt="">
+                                    @else
+                                        <img class="card-img-top" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt="">
+                                    @endif
+                                </a>
+                                <a class="whishlist" href=""><i class="far fa-heart"></i></a>                            
 
-                            <div class="product-action">
-                                <a class="btn btn-dark" href="#">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
-                                </a>                            
-                            </div>
-                        </div>                        
-                        <div class="card-body text-center mt-3">
-                            <a class="h6 link" href="">Dummy Product Title</a>
-                            <div class="price mt-2">
-                                <span class="h5"><strong>$100</strong></span>
-                                <span class="h6 text-underline"><del>$120</del></span>
-                            </div>
-                        </div>                        
-                    </div>
+                                <div class="product-action">
+                                    <a class="btn btn-dark" href="#">
+                                        <i class="fa fa-shopping-cart"></i> Add To Cart
+                                    </a>                            
+                                </div>
+                            </div>                        
+                            <div class="card-body text-center mt-3">
+                                <a class="h6 link" href="">{{ $relatedProduct->title }}</a>
+                                <div class="price mt-2">
+                                    <span class="h5"><strong>${{ $relatedProduct->price }}</strong></span>
+                                    @if ($relatedProduct->compare_price > 0)
+                                        <span class="h6 text-underline"><del>${{ $relatedProduct->compare_price }}</del></span>
+                                    @endif
+                                </div>
+                            </div>                        
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
+    @endif
 @endsection
