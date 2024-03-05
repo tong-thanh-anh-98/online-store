@@ -32,6 +32,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/video-js.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/ion.rangeSlider.min.css') }}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,7 +102,7 @@
 					</ul>      			
 				</div>
 				<div class="right-nav py-0">
-					<a href="cart.php" class="ml-3 d-flex pt-2">
+					<a href="{{ route('front.cart') }}" class="ml-3 d-flex pt-2">
 						<i class="fas fa-shopping-cart text-primary"></i>					
 					</a>
 				</div> 		
@@ -172,7 +173,13 @@
 	<script src="{{ asset('front-assets/js/ion.rangeSlider.min.js') }}"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
 
-	<script>
+	<script type="text/javascript">
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
 		window.onscroll = function() {myFunction()};
 		var navbar = document.getElementById("navbar");
 		var sticky = navbar.offsetTop;

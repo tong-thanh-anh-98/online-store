@@ -21,9 +21,10 @@ class StoreController extends Controller
      */
     public function index(Request $request, $categorySlug = null, $subCategorySlug = null)
     {
+        $data = [];
+        $brandsArray = [];
         $categorySelected = '';
         $subCategorySelected = '';
-        $brandsArray = [];
 
         $categories = Category::orderBy('name','ASC')->with('sub_category')->where('status',1)->get();
         $brands = Brand::orderBy('name','ASC')->where('status',1)->get();
@@ -51,21 +52,32 @@ class StoreController extends Controller
                 $products = $products->whereBetween('price',[intval($request->get('price_min')),intval($request->get('price_max'))]);
             }
         }
-        if ($request->get('sort') != '') {
-            if ($request->get('sort') == 'latest') {
-                $products = $products->orderBy('id','DESC');
-            } else if ($request->get('sort') == 'price_asc') {
-                $products = $products->orderBy('price','ASC');
-            } else {
-                $products = $products->orderBy('price','DESC');
-            }
+        // if ($request->get('sort') != '') {
+        //     if ($request->get('sort') == 'latest') {
+        //         $products = $products->orderBy('id','DESC');
+        //     } else if ($request->get('sort') == 'price_asc') {
+        //         $products = $products->orderBy('price','ASC');
+        //     } else {
+        //         $products = $products->orderBy('price','DESC');
+        //     }
+        // } else {
+        //     $products = $products->orderBy('id','DESC');
+        // }
+        if ($request->filled('sort')) {
+            $sort = $request->get('sort');
+            $products = $products->when($sort == 'latest', function ($query) {
+                return $query->orderBy('id', 'DESC');
+            })->when($sort == 'price_asc', function ($query) {
+                return $query->orderBy('price', 'ASC');
+            }, function ($query) {
+                return $query->orderBy('price', 'DESC');
+            });
         } else {
-            $products = $products->orderBy('id','DESC');
+            $products = $products->orderBy('id', 'DESC');
         }
 
         $products = $products->paginate(6);
 
-        $data = [];
         $data['categories'] = $categories;
         $data['brands'] = $brands;
         $data['products'] = $products;

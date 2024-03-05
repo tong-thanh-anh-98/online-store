@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ use App\Http\Controllers\StoreController;
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
 Route::get('/store/{categorySlug?}/{subCategorySlug?}', [StoreController::class, 'index'])->name('front.store');
 Route::get('/product/{slug}', [StoreController::class, 'product'])->name('front.product');
+Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.addToCart');
 
 /**
  * Define the admin routes.

@@ -23,6 +23,7 @@
 * Front
 + php artisan make:controller FrontController
 + php artisan make:controller StoreController
++ php artisan make:controller CartController
 
 - Factory
 + php artisan make:factory CategoryFactory
@@ -59,6 +60,7 @@
 - Install librarys
 + Image Intervention: composer require intervention/image
 + Database Abstraction Layer: composer require doctrine/dbal
++ composer require hardevine/shoppingcart
 
 + File composer.json:
 + Add "files" after "autoload"/"psr-4" then run the command: composer dump-autoload
