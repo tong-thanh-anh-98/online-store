@@ -101,11 +101,13 @@
                             <div class="col-md-4">
                                 <div class="card product-card">
                                     <div class="product-image position-relative">
-                                        @if (!empty($productImage->image))
-                                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('uploads/product/small/'.$productImage->image) }}" alt=""></a>
-                                        @else
-                                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt=""></a>
-                                        @endif
+                                        <a href="{{ route('front.product',$product->slug) }}" class="product-img">
+                                            @if (!empty($productImage->image))
+                                                <img class="card-img-top" src="{{ asset('uploads/product/small/'.$productImage->image) }}" alt="">
+                                            @else
+                                                <img class="card-img-top" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt="">
+                                            @endif
+                                        </a>
                                         <a class="whishlist" href="#"><i class="far fa-heart"></i></a>                            
 
                                         <div class="product-action">
@@ -115,7 +117,7 @@
                                         </div>
                                     </div>                        
                                     <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="#">{{ $product->title }}</a>
+                                        <a class="h6 link" href="{{ route('front.product',$product->slug) }}">{{ $product->title }}</a>
                                         <div class="price mt-2">
                                             <span class="h5"><strong>${{ $product->price }}</strong></span>
     

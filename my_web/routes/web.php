@@ -35,6 +35,7 @@ use App\Http\Controllers\StoreController;
  */
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
 Route::get('/store/{categorySlug?}/{subCategorySlug?}', [StoreController::class, 'index'])->name('front.store');
+Route::get('/product/{slug}', [StoreController::class, 'product'])->name('front.product');
 
 /**
  * Define the admin routes.

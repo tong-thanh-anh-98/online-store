@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class StoreController extends Controller
 {
     /**
-     * Display the store page with filtered products based on category, subcategory, brand, and price range.
+     * Display the store page with filtered products based on category, subcategory, brand, price range, and sorting.
      *
      * @param Request $request The HTTP request object.
      * @param string|null $categorySlug The slug of the category (optional).
@@ -63,7 +63,7 @@ class StoreController extends Controller
             $products = $products->orderBy('id','DESC');
         }
 
-        $products = $products->paginate(12);
+        $products = $products->paginate(6);
 
         $data = [];
         $data['categories'] = $categories;
@@ -77,5 +77,19 @@ class StoreController extends Controller
         $data['sort'] = $request->get('sort');
 
         return view('front.store',$data);
+    }
+
+    public function Product($slug)
+    {
+        $product = Product::where('slug',$slug)->with('product_images')->first();
+
+        if ($product == null) {
+            abort(404);
+        }
+
+        $data = [];
+        $data['product'] = $product;
+
+        return view('front.product', $data);
     }
 }
