@@ -16,6 +16,22 @@
     <section class=" section-9 pt-4">
         <div class="container">
             <div class="row">
+                @if (Session::has('success'))
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ Session::get('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                    </div>
+                @endif
+                @if (Session::has('error'))
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ Session::get('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                    </div>
+                @endif
                 <div class="col-md-8">
                     <div class="table-responsive">
                         <table class="table" id="cart">
@@ -51,13 +67,13 @@
                                             <td>
                                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                                     <div class="input-group-btn">
-                                                        <button class="btn btn-sm btn-dark btn-minus p-2 pt-1 pb-1">
+                                                        <button class="btn btn-sm btn-dark btn-minus p-2 pt-1 pb-1 sub" data-id="{{ $item->rowId }}">
                                                             <i class="fa fa-minus"></i>
                                                         </button>
                                                     </div>
                                                     <input type="text" class="form-control form-control-sm  border-0 text-center" value="{{ $item->qty }}">
                                                     <div class="input-group-btn">
-                                                        <button class="btn btn-sm btn-dark btn-plus p-2 pt-1 pb-1">
+                                                        <button class="btn btn-sm btn-dark btn-plus p-2 pt-1 pb-1 add" data-id="{{ $item->rowId }}">
                                                             <i class="fa fa-plus"></i>
                                                         </button>
                                                     </div>
@@ -107,4 +123,44 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('customJs')
+    <script>
+        $('.add').click(function() {
+            const qtyElement = $(this).parent().prev();
+            const qtyValue = parseInt(qtyElement.val());
+            if (qtyValue < 10) {
+                qtyElement.val(qtyValue + 1);
+
+                const rowId = $(this).data('id');
+                const newQty = qtyElement.val();
+                updateCart(rowId, newQty);
+            }            
+        });
+
+        $('.sub').click(function() {
+            const qtyElement = $(this).parent().next(); 
+            const qtyValue = parseInt(qtyElement.val());
+            if (qtyValue > 1) {
+                qtyElement.val(qtyValue - 1);
+
+                const rowId = $(this).data('id');
+                const newQty = qtyElement.val();
+                updateCart(rowId, newQty);
+            }        
+        });
+
+        function updateCart(rowId, qty) {
+            $.ajax({
+                url: '{{ route('front.updateCart') }}',
+                type: 'post',
+                data: {rowId: rowId, qty: qty},
+                dataType: 'json',
+                success: function (response) {
+                    window.location.href = '{{ route('front.cart') }}';
+                }
+            });
+        }
+    </script>
 @endsection

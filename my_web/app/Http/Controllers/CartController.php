@@ -8,6 +8,13 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
+    /**
+     * Add a product to the cart.
+     *
+     * @param Request $request The HTTP request object.
+     *
+     * @return \Illuminate\Http\JsonResponse The JSON response indicating the status and message.
+     */
     public function addToCart(Request $request)
     {
         $product = Product::with('product_images')->find($request->id);
@@ -54,16 +61,49 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Display the cart page showing the contents of the cart.
+     *
+     * @return \Illuminate\Contracts\View\View The view for the cart page.
+     */
     public function cart()
     {
-        $product = Product::with('product_images')->first();
         $cartContent = Cart::content();
-
         $data = [];
         $data['cartContent'] = $cartContent;
-        $data['product'] = $product;
 
         return view('front.cart', $data);
     }
 
+    public function updateCart(Request $request)
+    {
+        $rowId = $request->rowId;
+        $qty = $request->qty;
+        $itemInfo = Cart::get($rowId);
+        $product = Product::find($itemInfo->id);
+
+        /* Check qty available in stock */
+        if ($product->track_qty == 'Yes') {
+            if ($qty <= $product->qty) {
+                Cart::update($rowId, $qty);
+                $status = true;
+                $message = 'Cart updated successfully.';
+                session()->flash('success', $message);
+            } else {
+                $status = false;
+                $message = 'Request qty('.$qty.') not available in stock';
+                session()->flash('error', $message);
+            }
+        } else {
+            Cart::update($rowId, $qty);
+            $status = true;
+            $message = 'Cart updated successfully.';
+            session()->flash('success', $message);
+        }
+
+        return response()->json([
+            'status' =>  $status,
+            'message' => $message,
+        ]);
+    }
 }

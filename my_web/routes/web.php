@@ -39,6 +39,7 @@ Route::get('/store/{categorySlug?}/{subCategorySlug?}', [StoreController::class,
 Route::get('/product/{slug}', [StoreController::class, 'product'])->name('front.product');
 Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.addToCart');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('front.updateCart');
 
 /**
  * Define the admin routes.
