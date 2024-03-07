@@ -40,6 +40,7 @@ Route::get('/product/{slug}', [StoreController::class, 'product'])->name('front.
 Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.addToCart');
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('front.updateCart');
+Route::delete('/delete-item', [CartController::class, 'deleteItem'])->name('front.deleteItem.cart');
 
 /**
  * Define the admin routes.

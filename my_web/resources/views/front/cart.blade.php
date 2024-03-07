@@ -19,7 +19,7 @@
                 @if (Session::has('success'))
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ Session::get('success') }}
+                            {!! Session::get('success') !!}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                           </div>
                     </div>
@@ -27,39 +27,34 @@
                 @if (Session::has('error'))
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ Session::get('error') }}
+                            {!! Session::get('error') !!}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                           </div>
                     </div>
                 @endif
-                <div class="col-md-8">
-                    <div class="table-responsive">
-                        <table class="table" id="cart">
-                            <thead>
-                                <tr>
-                                    <th>Image</th>
-                                    <th>Item</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (!empty($cartContent))
+                @if (Cart::count() > 0)
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            <table class="table" id="cart">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     @foreach ($cartContent as $item)
                                         <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center justify-content-center">
+                                            <td class="text-start">
+                                                <div class="d-flex align-items-center">
                                                     @if (!empty($item->options->productImage->image))
                                                         <img src="{{ asset('uploads/product/small/'.$item->options->productImage->image) }}" width="" height="">
                                                     @else
                                                         <img src="{{ asset('admin-assets/img/default-150x150.png') }}" width="" height="">
                                                     @endif
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-center">
                                                     <h2>{{ $item->name }}</h2>
                                                 </div>
                                             </td>
@@ -83,43 +78,51 @@
                                                 ${{ $item->price * $item->qty }}
                                             </td>
                                             <td>
-                                                <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+                                                <button class="btn btn-sm btn-danger" onclick="deleteItem('{{ $item->rowId }}');"><i class="fa fa-times"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
-                                @endif                           
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">            
-                    <div class="card cart-summery">
-                        <div class="sub-title">
-                            <h2 class="bg-white">Cart Summery</h3>
+                    <div class="col-md-4">            
+                        <div class="card cart-summery">
+                            <div class="sub-title">
+                                <h2 class="bg-white">Cart Summery</h3>
+                            </div> 
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between pb-2">
+                                    <div>Subtotal</div>
+                                    <div>${{ Cart::subtotal() }}</div>
+                                </div>
+                                <div class="d-flex justify-content-between pb-2">
+                                    <div>Shipping</div>
+                                    <div>$0</div>
+                                </div>
+                                <div class="d-flex justify-content-between summery-end">
+                                    <div>Total</div>
+                                    <div>${{ Cart::subtotal() }}</div>
+                                </div>
+                                <div class="pt-5">
+                                    <a href="login.php" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
+                                </div>
+                            </div>
+                        </div>     
+                        <div class="input-group apply-coupan mt-4">
+                            <input type="text" placeholder="Coupon Code" class="form-control">
+                            <button class="btn btn-dark" type="button" id="button-addon2">Apply Coupon</button>
                         </div> 
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between pb-2">
-                                <div>Subtotal</div>
-                                <div>${{ Cart::subtotal() }}</div>
-                            </div>
-                            <div class="d-flex justify-content-between pb-2">
-                                <div>Shipping</div>
-                                <div>$0</div>
-                            </div>
-                            <div class="d-flex justify-content-between summery-end">
-                                <div>Total</div>
-                                <div>${{ Cart::subtotal() }}</div>
-                            </div>
-                            <div class="pt-5">
-                                <a href="login.php" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <h4>No products have been added to the cart yet.</h4>
                             </div>
                         </div>
-                    </div>     
-                    <div class="input-group apply-coupan mt-4">
-                        <input type="text" placeholder="Coupon Code" class="form-control">
-                        <button class="btn btn-dark" type="button" id="button-addon2">Apply Coupon</button>
-                    </div> 
-                </div>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
@@ -161,6 +164,20 @@
                     window.location.href = '{{ route('front.cart') }}';
                 }
             });
+        }
+
+        function deleteItem(rowId) {
+            if (confirm ('Are you sure, You want to delete item?')) {
+                $.ajax({
+                    url: '{{ route('front.deleteItem.cart') }}',
+                    type: 'delete',
+                    data: {rowId: rowId},
+                    dataType: 'json',
+                    success: function (response) {
+                        window.location.href = '{{ route('front.cart') }}';
+                    }
+                });
+            }
         }
     </script>
 @endsection

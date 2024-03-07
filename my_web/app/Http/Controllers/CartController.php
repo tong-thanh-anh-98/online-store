@@ -43,16 +43,18 @@ class CartController extends Controller
                     Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '']);
 
                     $status = true;
-                    $message = $product->title.' added in cart';
+                    $message = '<strong>'.$product->title.'</strong> added in your cart successfully.';
+                    session()->flash('success', $message);
                 } else {
                     $status = false;
-                    $message = $product->title.' already added in cart';
+                    $message = $product->title.' already added in cart.';
                 }
             }
         } else {
             Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '']);
             $status = true;
-            $message = $product->title.' added in cart';
+            $message = '<strong>'.$product->title.'</strong> added in your cart successfully.';
+            session()->flash('success', $message);
         }
 
         return response()->json([
@@ -91,7 +93,7 @@ class CartController extends Controller
                 session()->flash('success', $message);
             } else {
                 $status = false;
-                $message = 'Request qty('.$qty.') not available in stock';
+                $message = 'Requested qty('.$qty.') not available in stock';
                 session()->flash('error', $message);
             }
         } else {
@@ -103,6 +105,38 @@ class CartController extends Controller
 
         return response()->json([
             'status' =>  $status,
+            'message' => $message,
+        ]);
+    }
+
+    /**
+     * Delete an item from the cart.
+     *
+     * @param Request $request The HTTP request object.
+     *
+     * @return \Illuminate\Http\JsonResponse The JSON response indicating the status and message.
+     */
+    public function deleteItem(Request $request)
+    {
+        $errorMessage = 'Item not found in cart.';
+        $message = 'Item removed from cart successfully.';
+        $itemInfo = Cart::get($request->rowId);
+
+        if ($itemInfo == null) {
+            session()->flash('error', $errorMessage);
+
+            return response()->json([
+                'status' =>  false,
+                'message' => $errorMessage,
+            ]);
+        }
+
+        Cart::remove($request->rowId);
+
+        session()->flash('success', $message);
+
+        return response()->json([
+            'status' =>  true,
             'message' => $message,
         ]);
     }
