@@ -24,6 +24,7 @@
 + php artisan make:controller FrontController
 + php artisan make:controller StoreController
 + php artisan make:controller CartController
++ php artisan make:controller AuthController
 
 - Factory
 + php artisan make:factory CategoryFactory
@@ -56,6 +57,7 @@
 + php artisan make:migration alter_categories_table
 + php artisan make:migration alter_products_table
 + php artisan make:migration alter_sub_categories_table
++ php artisan make:migration alter_users_table
 
 - Install librarys
 + Image Intervention: composer require intervention/image

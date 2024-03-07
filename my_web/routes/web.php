@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
 use Illuminate\Support\Str;
@@ -41,6 +42,18 @@ Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.addToCart');
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('front.updateCart');
 Route::delete('/delete-item', [CartController::class, 'deleteItem'])->name('front.deleteItem.cart');
+
+Route::group(['prefix' => 'account'], function () {
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/login',[AuthController::class, 'login'])->name('account.login');
+        Route::get('/register',[AuthController::class, 'register'])->name('account.register');
+        Route::post('/process-register',[AuthController::class, 'processRegister'])->name('account.processRegister');        
+    });
+
+    Route::group(['middleware' => 'auth'], function () {
+
+    });
+});
 
 /**
  * Define the admin routes.
