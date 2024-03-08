@@ -35,12 +35,11 @@
                     <div class="form-group">
                         <label for="name">Pasword<span style="color:#FF0000">*</span></label>
                         <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-                        <p></p>
+                        <p class="error"></p>
                     </div>
                     <div class="form-group">
                         <label for="name">Confirm Password<span style="color:#FF0000">*</span></label>
-                        <input type="password" class="form-control" placeholder="Confirm Password" id="password_confirmation" name="password_confirmation">
-                        <p></p>
+                        <input type="password" class="form-control" placeholder="Confirm Password" id="cpassword" name="cpassword">
                     </div>
                     <div class="form-group small">
                         <a href="#" class="forgot-link">Forgot Password?</a>
