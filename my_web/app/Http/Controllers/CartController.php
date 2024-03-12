@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -159,6 +160,8 @@ class CartController extends Controller
 
         session()->forget('url.intended');
 
-        return view('front.checkout');
+        $countries = Country::orderBy('name','ASC')->get();
+
+        return view('front.checkout', compact('countries'));
     }
 }

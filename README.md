@@ -7,6 +7,7 @@
 + php artisan make:model Brand
 + php artisan make:model Product
 + php artisan make:model ProductImage
++ php artisan make:model Country
 * Front
 
 - Controller
@@ -31,6 +32,8 @@
 + php artisan make:factory ProductFactory
 
 - DB Seed
++ php artisan make:seeder CountrySeeder
++ php artisan db:seed --class=CountrySeeder
 + php artisan db:seed
 
 - Create user account with tinker:
@@ -58,6 +61,7 @@
 + php artisan make:migration alter_products_table
 + php artisan make:migration alter_sub_categories_table
 + php artisan make:migration alter_users_table
++ php artisan make:migration create_countries_table
 
 - Install librarys
 + Image Intervention: composer require intervention/image
