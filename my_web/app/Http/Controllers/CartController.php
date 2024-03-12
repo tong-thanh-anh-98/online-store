@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\CustomerAddress;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
@@ -143,6 +145,11 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Display the checkout page.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\View The redirect response to the cart page or the view for the checkout page.
+     */
     public function checkout()
     {
         /* Cart is empty redirect to cart page */
@@ -163,5 +170,53 @@ class CartController extends Controller
         $countries = Country::orderBy('name','ASC')->get();
 
         return view('front.checkout', compact('countries'));
+    }
+
+    public function processCheckout(Request $request)
+    {
+        // apply validation
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'country' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+            'mobile' => 'required|numeric',
+        ]);
+
+        if ($validator->passes()) {
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Please enter complete information',
+                'errors' => $validator->errors(),
+            ]);
+        }
+
+        // save user address
+        $user = Auth::user();
+        CustomerAddress::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'user_id' => $user->id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'country_id' => $request->country,
+                'address' => $request->address,
+                'apartment' => $request->apartment,
+                'city' => $request->city,
+                'state' => $request->state,
+                'zip' => $request->zip,
+            ]
+        );
+        
+        // Store data in order table
+
     }
 }

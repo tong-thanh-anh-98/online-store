@@ -7,8 +7,10 @@
 + php artisan make:model Brand
 + php artisan make:model Product
 + php artisan make:model ProductImage
-+ php artisan make:model Country
 * Front
++ php artisan make:model Country
++ php artisan make:model CustomerAddress
++ php artisan make:model OrderItem
 
 - Controller
 * Admin
@@ -62,6 +64,9 @@
 + php artisan make:migration alter_sub_categories_table
 + php artisan make:migration alter_users_table
 + php artisan make:migration create_countries_table
++ php artisan make:migration create_orders_table
++ php artisan make:migration create_order_items_table
++ php artisan make:migration create_customer_addresses_table
 
 - Install librarys
 + Image Intervention: composer require intervention/image
