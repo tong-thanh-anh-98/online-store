@@ -11,21 +11,39 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    /**
+     * Display the login page.
+     *
+     * @return \Illuminate\Contracts\View\View The view for the login page.
+     */
     public function login()
     {
         return view('front.account.login');
     }
 
+    /**
+     * Display the registration page.
+     *
+     * @return \Illuminate\Contracts\View\View The view for the registration page.
+     */
     public function register()
     {
         return view('front.account.register');
     }
 
+    /**
+     * Process the registration form submission.
+     *
+     * @param Request $request The HTTP request object.
+     *
+     * @return \Illuminate\Http\JsonResponse The JSON response indicating the status and message/errors.
+     */
     public function processRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'phone' => 'required|numeric',
             'password' => 'required|min:8|confirmed',
         ]);
 
@@ -50,6 +68,13 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Authenticate the user based on the provided credentials.
+     *
+     * @param Request $request The HTTP request object.
+     *
+     * @return \Illuminate\Http\RedirectResponse The redirect response to the intended URL or the account profile page.
+     */
     public function authenticate(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -71,11 +96,21 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Display the user profile page.
+     *
+     * @return \Illuminate\Contracts\View\View The view for the user profile page.
+     */
     public function profile()
     {
         return view('front.account.profile');
     }
 
+    /**
+     * Log out the authenticated user.
+     *
+     * @return \Illuminate\Http\RedirectResponse The redirect response to the login page with a success message.
+     */
     public function logout()
     {
         Auth::logout();
